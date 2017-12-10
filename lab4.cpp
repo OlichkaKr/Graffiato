@@ -2,14 +2,13 @@
 #include <iomanip>
 #include <cmath>
 
-const int SizeOfMatrix = 5;
+const int kSizeOfMatrix = 5;
 
 using namespace std;
 
-class Matrix
-{
+class Matrix {
    private:
-        double Array[SizeOfMatrix][SizeOfMatrix];
+        double array[kSizeOfMatrix][kSizeOfMatrix];
    public:
         void InputMatrixFromConsole();
         void OutputMatrixToConsole();
@@ -17,97 +16,79 @@ class Matrix
         void ExtraTasks();
 };
 
-int main(void)
-{
+int main(void) {
     Matrix Array;
+    cout << "Enter the elements of matrix M: " << endl;
     Array.InputMatrixFromConsole();
     Array.OutputMatrixToConsole();
     Array.BubbleSortOfMatrix();
     Array.ExtraTasks();
 }
 
-void Matrix::InputMatrixFromConsole()
-{
-    for (int i = 0; i < SizeOfMatrix; i++)
-    {
-        for (int j = 0; j < SizeOfMatrix; j++)
-        {
+void Matrix::InputMatrixFromConsole() {
+    for (int i = 0; i < kSizeOfMatrix; i++) {
+        for (int j = 0; j < kSizeOfMatrix; j++) {
             cout << "M[" << i + 1 << "][" << j + 1 << "] = ";
-            cin >> Array[i][j];
+            cin >> array[i][j];
         }
     }
 }
 
-void Matrix::OutputMatrixToConsole()
-{
+void Matrix::OutputMatrixToConsole() {
     cout << endl << "Old matrix:" << endl;
-    for (int i = 0; i < SizeOfMatrix; i++)
-    {
-        for (int j = 0; j < SizeOfMatrix; j++)
-        {
-            cout << setw(7)<< Array[i][j];
+    for (int i = 0; i < kSizeOfMatrix; i++) {
+        for (int j = 0; j < kSizeOfMatrix; j++) {
+            cout << setw(7)<< array[i][j];
         }
         cout << endl;
     }
 }
 
-void Matrix::BubbleSortOfMatrix()
-{
-    for (int j = 0; j < SizeOfMatrix; j++)
-    {
-        for (int k = SizeOfMatrix - 1; k > 0; k--)
-        {
-            for (int i = 0; i < k; i++)
-            {
-                if (Array[i][j] > Array[i+1][j])
-                {
-                    int temporaryVariable = Array[i][j];
-                    Array[i][j] = Array[i+1][j];
-                    Array[i+1][j] = temporaryVariable;
+void Matrix::BubbleSortOfMatrix() {
+    for (int j = 0; j < kSizeOfMatrix; j++) {
+        for (int k = kSizeOfMatrix - 1; k > 0; k--) {
+            for (int i = 0; i < k; i++) {
+                if (array[i][j] > array[i+1][j]) {
+                    int temporary_variable = array[i][j];
+                    array[i][j] = array[i+1][j];
+                    array[i+1][j] = temporary_variable;
                 }
             }
         }
     }
     cout << "\n" << "New matrix:" << endl;
-    for (int i = 0; i < SizeOfMatrix; i++)
-    {
-        for (int j = 0; j < SizeOfMatrix; j++)
-        {
-            cout << setw(7) << Array[i][j];
+    for (int i = 0; i < kSizeOfMatrix; i++) {
+        for (int j = 0; j < kSizeOfMatrix; j++) {
+            cout << setw(7) << array[i][j];
         }
         cout << endl;
     }
 }
 
-void Matrix::ExtraTasks()
-{
-    double product, sum, GeometryMean, ArithmeticMean;
+void Matrix::ExtraTasks() {
+    double product, sum, geometry_mean, arithmetic_mean;
     cout << endl << "Geometry mean:" << endl;
     sum = 0;
-    double *pGeometryMean = &GeometryMean;
+    double *pgeometry_mean = &geometry_mean;
 
     //Search a geometry mean of the elements in each string of matrix
-    for (int i = 0; i < SizeOfMatrix; i++)
-    {
+    for (int i = 0; i < kSizeOfMatrix; i++) {
         product = 1;
-        for (int j = 0; j < SizeOfMatrix; j++)
-            product = product * Array[i][j];
+        for (int j = 0; j < kSizeOfMatrix; j++)
+            product = product * array[i][j];
 
-        if (product < 0)
-        {
-            double PositiveGeometryMean = pow(fabs(product), 1/5.);
-            *pGeometryMean = PositiveGeometryMean * (-1);
-            cout << setw(5) << *pGeometryMean;
+        if (product < 0) {
+            double positive_geometry_mean = pow(fabs(product), 1/5.);
+            *pgeometry_mean = positive_geometry_mean * (-1);
+            cout << setw(5) << *pgeometry_mean;
+        } else {
+            *pgeometry_mean = pow(product, 1/5.);
+            cout << setprecision(3) << setw(7) << *pgeometry_mean << "    ";
         }
-        else
-        {
-            *pGeometryMean = pow(product, 1/5.);
-            cout << setprecision(3) << setw(7) << *pGeometryMean << "    ";
-        }
-        //Search sum of the geometry means
-        sum = sum + *pGeometryMean;
+        //Search the sum of the geometry means
+        sum = sum + *pgeometry_mean;
     }
-    ArithmeticMean = sum / 4;
-    cout << endl << endl << "Sum:  " << ArithmeticMean << endl;
+    arithmetic_mean = sum / 4;
+    cout << endl << endl << "Sum:  " << arithmetic_mean << endl;
 }
 
