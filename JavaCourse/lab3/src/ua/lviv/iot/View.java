@@ -7,19 +7,19 @@ public class View {
     private List<Plane> planeList = new LinkedList<>();
     private static Scanner input = new Scanner(System.in);
     private Scanner scanner = new Scanner(System.in);
-    private CompanyManager companyManager;
+    private CompanyManager companyManager = new CompanyManager(planeList);
 
     public View() {
-    menu = new LinkedHashMap<>();
+        menu = new LinkedHashMap<>();
 
-    menu.put("1", "  1 - Create Manager");
-    menu.put("2", "  2 - Add Plane");
-    menu.put("3", "  3 - Print List Of Planes");
-    menu.put("4", "  4 - Sort By Flight Range");
-    menu.put("5", "  5 - Find Plane");
-    menu.put("6", "  6 - Total Capacity");
-    menu.put("7", "  7 - Total Load Capacity");
-    menu.put("E", "  E - exit");
+        menu.put("1", "  1 - Create Manager");
+        menu.put("2", "  2 - Add Plane");
+        menu.put("3", "  3 - Print List Of Planes");
+        menu.put("4", "  4 - Sort By Flight Range");
+        menu.put("5", "  5 - Find Plane");
+        menu.put("6", "  6 - Total Capacity");
+        menu.put("7", "  7 - Total Load Capacity");
+        menu.put("E", "  E - exit");
 
     }
 
@@ -30,10 +30,10 @@ public class View {
         }
     }
 
-    public void manager(String num){
-        switch (num){
+    public void manager(String num) {
+        switch (num) {
             case "1": {
-                companyManager = new CompanyManager(planeList);
+                companyManager.setPlaneList(planeList);
 
                 planeList.add(new Military("Su-27", PlaneTypes.MILITARY, 15, 10,
                         150, 20, 20));
@@ -55,7 +55,7 @@ public class View {
                 PlaneTypes planeTypes;
                 System.out.print("Enter type of plane (civil or military): ");
                 String type = scanner.next().toLowerCase();
-                if (type.equals("civil")){
+                if (type.equals("civil")) {
                     planeTypes = PlaneTypes.CIVIL;
                 } else {
                     planeTypes = PlaneTypes.MILITARY;
@@ -71,7 +71,7 @@ public class View {
                 System.out.print("Enter passengers or ammunition: ");
                 int value = scanner.nextInt();
 
-                if (type.equals("civil")){
+                if (type.equals("civil")) {
                     planeList.add(new Civil(name, planeTypes, capacity, loadCapacity, fuelConsumption, flightRange, value));
                 } else {
                     planeList.add(new Military(name, planeTypes, capacity, loadCapacity, fuelConsumption, flightRange, value));
@@ -89,7 +89,7 @@ public class View {
                 System.out.print("How do you want to sort planes? (increase/decrease) ");
                 String comp = scanner.next().toLowerCase();
                 Comparison comparison;
-                if (comp.equals("increase")){
+                if (comp.equals("increase")) {
                     comparison = Comparison.INCREASE;
                 } else {
                     comparison = Comparison.DECREASE;
@@ -100,7 +100,7 @@ public class View {
             case "5": {
                 double fuelConsumption = scanner.nextDouble();
                 List<Plane> planes;
-                planes = companyManager.seachFuelConsumption(fuelConsumption);
+                planes = companyManager.searchFuelConsumption(fuelConsumption);
                 for (Plane plane : planes) {
                     System.out.print(plane.getName() + "; ");
                 }

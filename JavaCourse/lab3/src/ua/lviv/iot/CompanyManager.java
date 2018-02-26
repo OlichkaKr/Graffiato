@@ -1,20 +1,20 @@
 package ua.lviv.iot;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CompanyManager {
-
     private int totalCapacity = 0;
     private double totalLoadCapacity = 0;
 
     private List<Plane> planeList;
 
-    public CompanyManager(List<Plane> planeList){
+    public CompanyManager(List<Plane> planeList) {
         setPlaneList(planeList);
     }
 
-    public List<Plane> seachFuelConsumption(double fuelConsumption){
+    public List<Plane> searchFuelConsumption(double fuelConsumption) {
         List<Plane> result = new LinkedList<>();
         for (Plane aPlaneList : planeList) {
             if (aPlaneList.getFuelConsumption() == fuelConsumption) {
@@ -24,34 +24,23 @@ public class CompanyManager {
         return result;
     }
 
-    public void sortByFlightRange(List<Plane> planeList, Comparison comparison){
-        for (int j = 0; j < planeList.size(); j++){
-            for (int i = 0; i < planeList.size() - 1; i++){
-                if (comparison == Comparison.INCREASE){
-                    if (planeList.get(i).getFlightRange() > planeList.get(i+1).getFlightRange()){
-                        Plane temp = planeList.get(i);
-                        planeList.set(i, planeList.get(i+1));
-                        planeList.set(i+1, temp);
-                    }
-                } else {
-                    if (planeList.get(i).getFlightRange() < planeList.get(i+1).getFlightRange()){
-                        Plane temp = planeList.get(i);
-                        planeList.set(i, planeList.get(i+1));
-                        planeList.set(i+1, temp);
-                    }
-                }
-            }
+    public void sortByFlightRange(List<Plane> planeList, Comparison comparison) {
+
+        if (comparison == Comparison.INCREASE){
+            planeList.sort(Comparator.comparing(Plane::getFlightRange));
+        } else {
+            planeList.sort(Comparator.comparing(Plane::getFlightRange).reversed());
         }
     }
 
-    public int totalCapacity(List<Plane> planeList){
+    public int totalCapacity(List<Plane> planeList) {
         for (Plane aPlaneList : planeList) {
             totalCapacity += aPlaneList.getCapacity();
         }
         return totalCapacity;
     }
 
-    public double totalLoadCapacity(List<Plane> planeList){
+    public double totalLoadCapacity(List<Plane> planeList) {
         for (Plane aPlaneList : planeList) {
             totalLoadCapacity += aPlaneList.getLoadCapacity();
         }
