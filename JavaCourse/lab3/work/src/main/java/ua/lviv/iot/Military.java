@@ -21,4 +21,14 @@ public class Military extends Plane {
     private void setAmmunition(final int pAmmunition) {
         this.ammunition = pAmmunition;
     }
+
+    @Override
+    public final String getHeaders() {
+        return super.getHeaders() + ",ammunition\n";
+    }
+
+    @Override
+    public final String toCSV() {
+        return super.getName() + ", " + planeTypes + ", " + super.toCSV() + ", " + ammunition + "\n";
+    }
 }

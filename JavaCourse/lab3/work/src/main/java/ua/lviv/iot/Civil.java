@@ -23,4 +23,14 @@ public class Civil extends Plane {
     private void setPassengers(final int pPassengers) {
         this.passengers = pPassengers;
     }
+
+    @Override
+    public final String getHeaders() {
+        return super.getHeaders() + ",passengers\n";
+    }
+
+    @Override
+    public final String toCSV() {
+        return super.getName() + ", " + planeTypes + ", " + super.toCSV() + ", " + passengers + "\n";
+    }
 }

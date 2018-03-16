@@ -17,6 +17,14 @@ public class Plane {
         setFlightRange(pFlightRange);
     }
 
+    protected String getHeaders() {
+        return "name,type,capacity,loadCapacity,fuelConsumption,flightRange";
+    }
+
+    protected String toCSV() {
+        return capacity + ", " + loadCapacity + ", " + fuelConsumption + ", " + flightRange;
+    }
+
     public final String getName() {
         return name;
     }

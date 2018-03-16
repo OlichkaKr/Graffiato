@@ -12,8 +12,10 @@ public class View {
     private static Scanner input = new Scanner(System.in, "UTF-8");
     private Scanner scanner = new Scanner(System.in, "UTF-8");
     private CompanyManager companyManager = new CompanyManager(planeList);
+    private PlaneWriter planeWriter = new PlaneWriter();
+    private PlaneReader planeReader = new PlaneReader();
 
-    public static void main(String[] args) {
+    public static final void main(final String[] args) {
         View view = new View();
         view.show();
     }
@@ -31,18 +33,17 @@ public class View {
 
     }
 
-    public void outputMenu() {
+    public final void outputMenu() {
         System.out.print("\nMENU:\n");
         for (String str : menu.values()) {
             System.out.print(str + "\n");
         }
     }
 
-    public void manager(final String num) {
+    public final void manager(final String num) {
         switch (num) {
             case "1": {
                 companyManager.setPlaneList(planeList);
-
                 planeList.add(new Military("Su-27", PlaneTypes.MILITARY, 15, 10,
                         150, 20, 20));
                 planeList.add(new Military("Il-2", PlaneTypes.MILITARY, 20, 50,
@@ -55,13 +56,19 @@ public class View {
                         500, 2000, 1500));
                 planeList.add(new Civil("Gulfstream G150", PlaneTypes.CIVIL, 20, 50,
                         300, 1500, 100));
+
+                planeWriter.writeToFile(planeList);
                 break;
             }
             case "2": {
                 for (Plane plane : planeList) {
                     System.out.print(plane.getName() + "; ");
                 }
+
                 System.out.print("\n");
+
+                System.out.print("\nPlanes from csv file:\n");
+                planeReader.readFromCSV(PlaneTypes.MILITARY);
                 break;
             }
             case "3": {
@@ -95,6 +102,11 @@ public class View {
                         + companyManager.totalLoadCapacity(planeList) + " tones.\n");
                 break;
             }
+            case "E": {
+                System.out.print("  Goodbye!!!\n");
+                return;
+//                System.exit(0);
+            }
             default: {
                 System.out.print("Error! Menu has not this point\n");
             }
@@ -108,8 +120,14 @@ public class View {
             System.out.println("Please, select menu point");
             keyMenu = input.nextLine().toUpperCase();
             manager(keyMenu);
-            System.out.println("  M - return menu\n  E - exit");
-            keyMenu = input.nextLine().toUpperCase();
+            do {
+                System.out.println("\n  M - return menu\n  E - exit");
+                keyMenu = input.nextLine().toUpperCase();
+                if (keyMenu.equalsIgnoreCase("E")) {
+                    manager(keyMenu);
+                }
+            } while (!keyMenu.equalsIgnoreCase("M"));
+
         } while (!keyMenu.equalsIgnoreCase("E"));
     }
 }

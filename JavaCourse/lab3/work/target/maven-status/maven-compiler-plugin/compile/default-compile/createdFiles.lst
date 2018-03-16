@@ -1,8 +1,9 @@
-ua\lviv\iot\Main.class
 ua\lviv\iot\View.class
 ua\lviv\iot\PlaneTypes.class
 ua\lviv\iot\Civil.class
+ua\lviv\iot\PlaneWriter.class
 ua\lviv\iot\Plane.class
 ua\lviv\iot\CompanyManager.class
 ua\lviv\iot\Comparison.class
 ua\lviv\iot\Military.class
+ua\lviv\iot\PlaneReader.class

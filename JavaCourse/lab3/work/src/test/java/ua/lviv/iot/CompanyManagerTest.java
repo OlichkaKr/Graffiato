@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompanyManagerTest {
     private List<Plane> planeList = new LinkedList<>();
     private List<Plane> result = new LinkedList<>();
+    private PlaneWriter planeWriter = new PlaneWriter();
+    private PlaneReader planeReader = new PlaneReader();
     private CompanyManager companyManager = new CompanyManager(planeList);
 
-    void setList() {
+    private void setList() {
         planeList.add(new Military("Su-27", PlaneTypes.MILITARY, 15, 10,
                 150, 20, 20));
         planeList.add(new Military("Il-2", PlaneTypes.MILITARY, 20, 50,
@@ -69,4 +71,13 @@ class CompanyManagerTest {
         assertTrue(companyManager.totalLoadCapacity(planeList) ==  140.4);
     }
 
+    @Test
+    void csvTest() {
+        setList();
+        planeWriter.writeToFile(planeList);
+        result = planeReader.readFromCSV(PlaneTypes.MILITARY);
+        for (Plane aResult : result) {
+            System.out.print(aResult.toCSV());
+        }
+    }
 }

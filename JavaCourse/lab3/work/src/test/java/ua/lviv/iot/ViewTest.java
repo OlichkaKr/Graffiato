@@ -44,11 +44,20 @@ class ViewTest extends Output{
         }
         expectedOut = "Su-27; Il-2; Tu-16; Boeing 747; Airbus A300; Gulfstream G150; ";
         assertEquals(expectedOut, actuallyOut);
+        assertEquals("CSV file was created successfully\n", output.toString());
     }
 
     @Test
     void managerMenu2() {
-        String expectedOut = "Su-27; Il-2; Tu-16; Boeing 747; Airbus A300; Gulfstream G150; \n";
+        String expectedOut = "CSV file was created successfully\n" +
+                "Su-27; Il-2; Tu-16; Boeing 747; Airbus A300; Gulfstream G150; \n\n" +
+                "Planes from csv file:\n" +
+                "Su-27, MILITARY, 15, 10.0, 150.0, 20.0, 20\n" +
+                "Il-2, MILITARY, 20, 50.0, 100.0, 30.0, 15\n" +
+                "Tu-16, MILITARY, 100, 20.0, 100.0, 100.0, 50\n" +
+                "Boeing 747, MILITARY, 10, 0.4, 1000.0, 1500.0, 1000\n" +
+                "Airbus A300, MILITARY, 50, 10.0, 500.0, 2000.0, 1500\n" +
+                "Gulfstream G150, MILITARY, 20, 50.0, 300.0, 1500.0, 100\n";
         view.manager("1");
         view.manager("2");
         assertEquals(expectedOut, output.toString());
@@ -58,18 +67,23 @@ class ViewTest extends Output{
     void managerMenu5() {
         view.manager("1");
         view.manager("5");
-        String expectedOut = "Capacity of all planes is 215 tones.\n";
+        String expectedOut = "CSV file was created successfully\nCapacity of all planes is 215 tones.\n";
         assertEquals(expectedOut, output.toString());
     }
 
     @Test
     void managerMenu6() {
-        String expectedOut = "Load capacity of all planes is 140.4 tones.\n";
+        String expectedOut = "CSV file was created successfully\nLoad capacity of all planes is 140.4 tones.\n";
         view.manager("1");
         view.manager("6");
         assertEquals(expectedOut, output.toString());
     }
 
+    @Test
+    void managerMenuE(){
+        view.manager("E");
+        assertEquals("  Goodbye!!!\n", output.toString());
+    }
     @Test
     void managerDefault() {
         String expectedOut = "Error! Menu has not this point\n";
