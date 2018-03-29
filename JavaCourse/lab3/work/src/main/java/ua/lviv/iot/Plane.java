@@ -1,11 +1,15 @@
 package ua.lviv.iot;
 
-public class Plane {
-    private String name = "no name";
+public class Plane{
+    private String name ;
     private double loadCapacity;
     private int capacity;
     private double fuelConsumption;
     private double flightRange;
+    private int id;
+
+    public Plane(){}
+
 
     public Plane(final String pName, final int pCapacity,
                  final double pLoadCapacity, final double pFuelConsumption,
@@ -17,6 +21,19 @@ public class Plane {
         setFlightRange(pFlightRange);
     }
 
+    public Plane(final String pName, final int pCapacity,
+                 final double pLoadCapacity, final double pFuelConsumption,
+                 final double pFlightRange, final int id) {
+        setName(pName);
+        setCapacity(pCapacity);
+        setLoadCapacity(pLoadCapacity);
+        setFuelConsumption(pFuelConsumption);
+        setFlightRange(pFlightRange);
+        setId(id);
+    }
+
+
+
     protected String getHeaders() {
         return "name,type,capacity,loadCapacity,fuelConsumption,flightRange";
     }
@@ -25,43 +42,52 @@ public class Plane {
         return capacity + ", " + loadCapacity + ", " + fuelConsumption + ", " + flightRange;
     }
 
-    public final String getName() {
+
+    public String getName() {
         return name;
     }
 
-    private void setName(final String pName) {
-        this.name = pName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public final double getLoadCapacity() {
+    public double getLoadCapacity() {
         return loadCapacity;
     }
 
-    private void setLoadCapacity(final double pLoadCapacity) {
-        this.loadCapacity = pLoadCapacity;
+    public void setLoadCapacity(double loadCapacity) {
+        this.loadCapacity = loadCapacity;
     }
 
-    public final int getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    private void setCapacity(final int pCapacity) {
-        this.capacity = pCapacity;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
-    public final double getFuelConsumption() {
+    public double getFuelConsumption() {
         return fuelConsumption;
     }
 
-    private void setFuelConsumption(final double pFuelConsumption) {
-        this.fuelConsumption = pFuelConsumption;
+    public void setFuelConsumption(double fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
     }
 
-    public final double getFlightRange() {
+    public double getFlightRange() {
         return flightRange;
     }
 
-    private void setFlightRange(final double pFlightRange) {
-        this.flightRange = pFlightRange;
+    public void setFlightRange(double flightRange) {
+        this.flightRange = flightRange;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

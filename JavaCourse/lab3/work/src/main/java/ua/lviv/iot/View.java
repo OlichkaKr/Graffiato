@@ -1,14 +1,10 @@
 package ua.lviv.iot;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class View {
     private Map<String, String> menu;
-    private List<Plane> planeList = new LinkedList<>();
+    private Map<Integer, Plane> planeList = new HashMap<>();
     private static Scanner input = new Scanner(System.in, "UTF-8");
     private Scanner scanner = new Scanner(System.in, "UTF-8");
     private CompanyManager companyManager = new CompanyManager(planeList);
@@ -44,31 +40,35 @@ public class View {
         switch (num) {
             case "1": {
                 companyManager.setPlaneList(planeList);
-                planeList.add(new Military("Su-27", PlaneTypes.MILITARY, 15, 10,
+                planeList.put(1, new Military("Su-27", PlaneTypes.MILITARY, 15, 10,
                         150, 20, 20));
-                planeList.add(new Military("Il-2", PlaneTypes.MILITARY, 20, 50,
+                planeList.put(2, new Military("Il-2", PlaneTypes.MILITARY, 20, 50,
                         100, 30, 15));
-                planeList.add(new Military("Tu-16", PlaneTypes.MILITARY, 100, 20,
+                planeList.put(3, new Military("Tu-16", PlaneTypes.MILITARY, 100, 20,
                         100, 100, 50));
-                planeList.add(new Civil("Boeing 747", PlaneTypes.CIVIL, 10, 0.4,
+                planeList.put(4, new Civil("Boeing 747", PlaneTypes.CIVIL, 10, 0.4,
                         1000, 1500, 1000));
-                planeList.add(new Civil("Airbus A300", PlaneTypes.CIVIL, 50, 10,
+                planeList.put(5, new Civil("Airbus A300", PlaneTypes.CIVIL, 50, 10,
                         500, 2000, 1500));
-                planeList.add(new Civil("Gulfstream G150", PlaneTypes.CIVIL, 20, 50,
+                planeList.put(6, new Civil("Gulfstream G150", PlaneTypes.CIVIL, 20, 50,
                         300, 1500, 100));
 
                 planeWriter.writeToFile(planeList);
                 break;
             }
             case "2": {
-                for (Plane plane : planeList) {
-                    System.out.print(plane.getName() + "; ");
+                for (Map.Entry<Integer, Plane> plane : planeList.entrySet()) {
+                    System.out.print(plane.getValue().getName() + "; ");
                 }
 
                 System.out.print("\n");
 
                 System.out.print("\nPlanes from csv file:\n");
-                planeReader.readFromCSV(PlaneTypes.MILITARY);
+                Map<Integer, Plane> planes = new LinkedHashMap<>(planeReader.readFromCSV(PlaneTypes.MILITARY));
+                for (Map.Entry<Integer, Plane> planeEntry: planes.entrySet()){
+                    System.out.print(planeEntry.getValue().getName() + "; ");
+                }
+                planes.clear();
                 break;
             }
             case "3": {
@@ -80,15 +80,15 @@ public class View {
                 } else {
                     comparison = Comparison.DECREASE;
                 }
-                companyManager.sortByFlightRange(planeList, comparison);
+                CompanyManager.sortByFlightRange(planeList, comparison);
                 break;
             }
             case "4": {
                 double fuelConsumption = scanner.nextDouble();
-                List<Plane> planes;
+                Map<Integer, Plane> planes;
                 planes = companyManager.searchFuelConsumption(fuelConsumption);
-                for (Plane plane : planes) {
-                    System.out.print(plane.getName() + "; ");
+                for (Map.Entry<Integer, Plane> plane : planes.entrySet()) {
+                    System.out.print(plane.getValue().getName() + "; ");
                 }
                 break;
             }
@@ -105,7 +105,6 @@ public class View {
             case "E": {
                 System.out.print("  Goodbye!!!\n");
                 return;
-//                System.exit(0);
             }
             default: {
                 System.out.print("Error! Menu has not this point\n");
@@ -125,6 +124,7 @@ public class View {
                 keyMenu = input.nextLine().toUpperCase();
                 if (keyMenu.equalsIgnoreCase("E")) {
                     manager(keyMenu);
+                    return;
                 }
             } while (!keyMenu.equalsIgnoreCase("M"));
 

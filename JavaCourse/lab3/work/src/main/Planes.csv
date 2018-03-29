@@ -1,0 +1,18 @@
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,ammunition
+Su-27, MILITARY, 15, 10.0, 150.0, 20.0, 20
+
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,ammunition
+Il-2, MILITARY, 20, 50.0, 100.0, 30.0, 15
+
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,ammunition
+Tu-16, MILITARY, 100, 20.0, 100.0, 100.0, 50
+
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,passengers
+Boeing 747, CIVIL, 10, 0.4, 1000.0, 1500.0, 1000
+
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,passengers
+Airbus A300, CIVIL, 50, 10.0, 500.0, 2000.0, 1500
+
+name,type,capacity,loadCapacity,fuelConsumption,flightRange,passengers
+Gulfstream G150, CIVIL, 20, 50.0, 300.0, 1500.0, 100
+

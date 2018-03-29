@@ -3,14 +3,15 @@ package ua.lviv.iot;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class PlaneWriter {
-    public void writeToFile(final List<Plane> pPlaneList) {
+    public void writeToFile(final Map<Integer, Plane> pPlaneList) {
 
-        try (FileWriter fileWriter = new FileWriter("..\\work\\src\\main\\Plane.csv", false)) {
-            for (Plane aPlaneList : pPlaneList) {
-                fileWriter.append(aPlaneList.getHeaders());
-                fileWriter.append(aPlaneList.toCSV());
+        try (FileWriter fileWriter = new FileWriter("..\\lab3\\work\\src\\main\\Planes.csv", false)) {
+            for (Map.Entry<Integer, Plane> plane: pPlaneList.entrySet()) {
+                fileWriter.append(plane.getValue().getHeaders());
+                fileWriter.append(plane.getValue().toCSV());
                 fileWriter.append("\n");
             }
             fileWriter.close();
