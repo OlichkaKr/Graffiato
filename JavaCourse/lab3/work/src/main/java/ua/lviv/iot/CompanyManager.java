@@ -1,13 +1,20 @@
 package ua.lviv.iot;
 
+import ua.lviv.iot.persistence.dao.PlaneDao;
+
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CompanyManager {
+public class CompanyManager implements Serializable{
     private int totalCapacity = 0;
     private double totalLoadCapacity = 0;
 
     private Map<Integer, Plane> planeList = new HashMap<>();
+
+    @Inject
+    private PlaneDao dao;
 
     public CompanyManager() {
     }
@@ -17,8 +24,20 @@ public class CompanyManager {
     }
 
     public final void addPlane(final Plane plane) {
-        planeList.put(plane.getId(), plane);
+        dao.persist(plane);
+//        planeList.put(plane.getId(), plane);
+    }
 
+    public Plane findById(Integer id){
+        return dao.findById(id);
+    }
+
+    public void deletePlane(Integer id){
+        dao.deleteById(id);
+    }
+
+    public boolean updatePlane(Integer id, Plane plane){
+        return dao.update(plane) != null;
     }
 
     public final Map<Integer, Plane> searchFuelConsumption(final double fuelCons) {
